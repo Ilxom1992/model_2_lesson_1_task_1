@@ -14,9 +14,9 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(unique = true)
+    @Column(nullable = false)
     private String street;
-    @Column(unique = true)
+    @Column(nullable = false)
     private  Integer homeNumber;
 }
 

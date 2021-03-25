@@ -14,8 +14,9 @@ public class Worker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(unique = true)
+    @Column(nullable =false)
     private String name;
+    @Column(unique = true)
     private String phoneNumber;
     @OneToOne
     private Address address;

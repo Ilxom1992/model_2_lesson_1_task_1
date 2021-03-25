@@ -5,6 +5,7 @@ import com.example.demo.payload.ApiResponse;
 import com.example.demo.payload.CompanyDto;
 import com.example.demo.service.CompanyService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -25,27 +26,27 @@ public class CompanyController {
 
 
     @GetMapping
-    public List<Company> getCostumer(){
-return companyService.getCompany();
+    public ResponseEntity<List<Company>> getCostumer(){
+return ResponseEntity.ok(companyService.getCompany());
     }
 
 
     @GetMapping("{id}")
-    public Company getCompanyByID(@PathVariable Integer id){
-return companyService.getCompanyById(id);
+    public ResponseEntity<Company> getCompanyByID(@PathVariable Integer id){
+return ResponseEntity.ok(companyService.getCompanyById(id));
     }
 @PostMapping
-    public ApiResponse addCompany(@Valid @RequestBody CompanyDto companyDto){
-    return companyService.addCompany(companyDto);
+    public ResponseEntity<ApiResponse> addCompany(@Valid @RequestBody CompanyDto companyDto){
+    return ResponseEntity.ok(companyService.addCompany(companyDto));
 }
 
 @PutMapping("{id}")
-public  ApiResponse editCostumer(@Valid @PathVariable Integer id , @RequestBody CompanyDto companyDto){
-return companyService.editCompany(id,companyDto);
+public  ResponseEntity<ApiResponse> editCostumer(@Valid @PathVariable Integer id , @RequestBody CompanyDto companyDto){
+return ResponseEntity.ok(companyService.editCompany(id,companyDto));
 }
 @DeleteMapping("/{id}")
-    public ApiResponse deleteCustomer(@PathVariable Integer id){
-return companyService.deleteCompany(id);
+    public ResponseEntity<ApiResponse> deleteCustomer(@PathVariable Integer id){
+return ResponseEntity.ok(companyService.deleteCompany(id));
 }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -14,9 +14,9 @@ public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(unique = true)
+    @Column(nullable = false)
     private String corpName;
-    @Column(unique = true)
+    @Column(nullable = false)
     private  String directorName;
     @OneToOne
     private  Address address;

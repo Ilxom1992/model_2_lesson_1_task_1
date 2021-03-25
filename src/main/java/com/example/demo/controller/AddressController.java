@@ -5,6 +5,7 @@ import com.example.demo.payload.AddressDto;
 import com.example.demo.payload.ApiResponse;
 import com.example.demo.service.AddressService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -24,38 +25,26 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-
-    /**
-     * Bu yerda barcha addreslar ro'yhatini qaytaradi
-     * @return Address
-     */
     @GetMapping
-    public List<Address> getCostumer(){
-return addressService.getAddress();
+    public ResponseEntity<List<Address>> getCostumer(){
+       return ResponseEntity.ok(addressService.getAddress());
     }
 
-    /**
-     *
-     * @param id id orqali costumr ni qaytaradi
-     * @return costumer
-     */
     @GetMapping("{id}")
-    public Address getCostumerByID(@PathVariable Integer id){
-return addressService.getAddressById(id);
+    public ResponseEntity<Address> getCostumerByID(@PathVariable Integer id){
+return ResponseEntity.ok(addressService.getAddressById(id));
     }
 @PostMapping
-    public ApiResponse addCostumer(@Valid @RequestBody AddressDto addressDto){
-    ApiResponse apiResponse = addressService.addAddress(addressDto);
-return apiResponse;
+    public ResponseEntity<ApiResponse> addCostumer(@Valid @RequestBody AddressDto addressDto){
+ return   ResponseEntity.ok(addressService.addAddress(addressDto));
 }
-
 @PutMapping("{id}")
-public  ApiResponse editCostumer(@Valid @PathVariable Integer id , @RequestBody AddressDto addressDto){
-return addressService.editAddress(id,addressDto);
+public  ResponseEntity<ApiResponse> editCostumer(@Valid @PathVariable Integer id , @RequestBody AddressDto addressDto){
+return ResponseEntity.ok(addressService.editAddress(id,addressDto));
 }
 @DeleteMapping("/{id}")
-    public ApiResponse deleteCustomer(@PathVariable Integer id){
-return addressService.deleteCustomer(id);
+    public ResponseEntity<ApiResponse> deleteCustomer(@PathVariable Integer id){
+return ResponseEntity.ok(addressService.deleteCustomer(id));
 }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

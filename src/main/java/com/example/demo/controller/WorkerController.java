@@ -5,6 +5,7 @@ import com.example.demo.payload.ApiResponse;
 import com.example.demo.payload.WorkerDto;
 import com.example.demo.service.WorkerService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -24,37 +25,29 @@ final WorkerService workerService;
         this.workerService = workerService;
     }
 
-    /**
-     * Bu yerda barcha Workerlar ro'yhatini qaytaradi
-     * @return Workers
-     */
+
     @GetMapping
-    public List<Worker> getWorker(){
-return workerService.getworker();
+    public ResponseEntity<List<Worker>> getWorker(){
+return ResponseEntity.ok(workerService.getworker());
     }
 
-    /**
-     *
-     * @param id id orqali costumr ni qaytaradi
-     * @return Worker
-     */
+
     @GetMapping("{id}")
-    public Worker getWorkerByID(@PathVariable Integer id){
-return workerService.getWorkerById(id);
+    public ResponseEntity<Worker> getWorkerByID(@PathVariable Integer id){
+return ResponseEntity.ok(workerService.getWorkerById(id));
     }
 @PostMapping
-    public ApiResponse addWorker(@Valid @RequestBody WorkerDto workerDto){
-    ApiResponse apiResponse = workerService.addWorker(workerDto);
-return apiResponse;
+    public ResponseEntity<ApiResponse> addWorker(@Valid @RequestBody WorkerDto workerDto){
+    return ResponseEntity.ok(workerService.addWorker(workerDto));
 }
 
 @PutMapping("{id}")
-public  ApiResponse editWorker(@Valid @PathVariable Integer id , @RequestBody WorkerDto WorkerDto){
-return workerService.editWorker(id,WorkerDto);
+public  ResponseEntity<ApiResponse> editWorker(@Valid @PathVariable Integer id , @RequestBody WorkerDto WorkerDto){
+return ResponseEntity.ok(workerService.editWorker(id,WorkerDto));
 }
 @DeleteMapping("/{id}")
-    public ApiResponse deleteCustomer(@PathVariable Integer id){
-return workerService.deleteWorker(id);
+    public ResponseEntity<ApiResponse> deleteCustomer(@PathVariable Integer id){
+return ResponseEntity.ok(workerService.deleteWorker(id));
 }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -4,6 +4,7 @@ import com.example.demo.payload.ApiResponse;
 import com.example.demo.payload.DepartmentDto;
 import com.example.demo.service.DepartmentService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +24,8 @@ public class DepartmentController {
 
 
     @GetMapping
-    public List<Department> getDepartment(){
-return departmentService.getDepartment();
+    public ResponseEntity<List<Department>> getDepartment(){
+return ResponseEntity.ok(departmentService.getDepartment());
     }
 
 
@@ -33,14 +34,14 @@ return departmentService.getDepartment();
 return departmentService.getDepartmentById(id);
     }
 @PostMapping
-    public ApiResponse addDepartment(@Valid @RequestBody DepartmentDto departmentDto){
-    ApiResponse apiResponse = departmentService.addDepartment(departmentDto);
-return apiResponse;
+    public ResponseEntity<ApiResponse> addDepartment(@Valid @RequestBody DepartmentDto departmentDto){
+   return ResponseEntity.ok(departmentService.addDepartment(departmentDto));
+
 }
 
 @PutMapping("{id}")
-public  ApiResponse editDepartment(@Valid @PathVariable Integer id , @RequestBody DepartmentDto DepartmentDto){
-return departmentService.editDepartment(id,DepartmentDto);
+public  ResponseEntity<ApiResponse> editDepartment(@Valid @PathVariable Integer id , @RequestBody DepartmentDto DepartmentDto){
+return ResponseEntity.ok(departmentService.editDepartment(id,DepartmentDto));
 }
 @DeleteMapping("/{id}")
     public ApiResponse deleteCustomer(@PathVariable Integer id){
