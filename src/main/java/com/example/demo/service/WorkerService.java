@@ -25,13 +25,15 @@ final DepartmentRepository departmentRepository;
         this.addressRepository = addressRepository;
         this.departmentRepository = departmentRepository;
     }
-    public List<Worker> getworker(){
+
+    public List<Worker> getWorker(){
 return workerRepository.findAll();
     }
     public Worker getWorkerById(Integer id){
         Optional<Worker> optionalWorker = workerRepository.findById(id);
         return optionalWorker.orElse(null);
     }
+    //CREATE WORKER
     public ApiResponse addWorker(WorkerDto workerDto){
         boolean existsByPhoneNumber = workerRepository.existsByPhoneNumber(workerDto.getPhoneNumber());
         if (existsByPhoneNumber){
@@ -40,16 +42,20 @@ return workerRepository.findAll();
         Worker worker= new Worker();
        worker.setName(worker.getName());
        worker.setPhoneNumber(worker.getPhoneNumber());
-        Optional<Address> optionalAddress = addressRepository.findById(workerDto.getAddressId());
+
+       //NEW ADDRESS
+       Address address=new Address();
+       address.setStreet(workerDto.getStreet());
+       address.setHomeNumber(workerDto.getHomeNumber());
+
+       //ADDRESS SAVED DATABASE
+        Address saveAddress = addressRepository.save(address);
         Optional<Department> optionalDepartment = departmentRepository.findById(workerDto.getDepartmentId());
-        if (!optionalAddress.isPresent()){
-            return new  ApiResponse("Bunday Address mavjud emas",false);
-        }
         if (!optionalDepartment.isPresent()){
             return new  ApiResponse("Bunday dapartment mavjud emas",false);
         }
         worker.setDepartment(optionalDepartment.get());
-        worker.setAddress(optionalAddress.get());
+        worker.setAddress(saveAddress);
         workerRepository.save(worker);
         return new ApiResponse("Worker Saved ",true);
     }
@@ -65,21 +71,31 @@ return workerRepository.findAll();
         Worker worker= optionalworker.get();
         worker.setName(worker.getName());
         worker.setPhoneNumber(worker.getPhoneNumber());
-        Optional<Address> optionalAddress = addressRepository.findById(workerDto.getAddressId());
+
+        //NEW ADDRESS
+        Address address=new Address();
+        address.setStreet(workerDto.getStreet());
+        address.setHomeNumber(workerDto.getHomeNumber());
+
+        //ADDRESS SAVED DATABASE
+        Address saveAddress = addressRepository.save(address);
         Optional<Department> optionalDepartment = departmentRepository.findById(workerDto.getDepartmentId());
-        if (!optionalAddress.isPresent()){
-            return new  ApiResponse("Bunday Address mavjud emas",false);
-        }
         if (!optionalDepartment.isPresent()){
             return new  ApiResponse("Bunday dapartment mavjud emas",false);
         }
         worker.setDepartment(optionalDepartment.get());
-        worker.setAddress(optionalAddress.get());
+        worker.setAddress(saveAddress);
         workerRepository.save(worker);
-        return new ApiResponse("Worker Edited ",true);
+
+        return new ApiResponse("Worker Saved ",true);
     }
     public ApiResponse deleteWorker(Integer id){
-      workerRepository.deleteById(id);
+        Optional<Worker> optionalWorker = workerRepository.findById(id);
+        if (!optionalWorker.isPresent()){
+            return new ApiResponse("Bunday  worker mavjud emas",false);
+        }
+        workerRepository.deleteById(id);
+
         return new ApiResponse("This  worker deleted",true);
     }
 }

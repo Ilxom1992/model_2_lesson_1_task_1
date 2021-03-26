@@ -28,7 +28,7 @@ final WorkerService workerService;
 
     @GetMapping
     public ResponseEntity<List<Worker>> getWorker(){
-return ResponseEntity.ok(workerService.getworker());
+return ResponseEntity.ok(workerService.getWorker());
     }
 
 

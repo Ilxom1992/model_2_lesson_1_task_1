@@ -36,7 +36,7 @@ return ResponseEntity.ok(addressService.getAddressById(id));
     }
 @PostMapping
     public ResponseEntity<ApiResponse> addCostumer(@Valid @RequestBody AddressDto addressDto){
- return   ResponseEntity.ok(addressService.addAddress(addressDto));
+    return ResponseEntity.ok(addressService.addAddress(addressDto));
 }
 @PutMapping("{id}")
 public  ResponseEntity<ApiResponse> editCostumer(@Valid @PathVariable Integer id , @RequestBody AddressDto addressDto){

@@ -17,7 +17,9 @@ public class CompanyDto {
     private String corpName;
     @NotNull(message = "director Name Bo'sh bo'lmasligi kerak")
     private  String directorName;
-    @NotNull(message = "Address Id berilmadi")
-    private  Integer addressId;
+    @NotNull(message = "street name Bo'sh bo'lmasligi kerak")
+    private String street;
+    @NotNull(message = "home Number Bo'sh bo'lmasligi kerak")
+    private  Integer homeNumber;
 }
 //   Company(corpName, directorName, Address)
