@@ -72,8 +72,8 @@ return workerRepository.findAll();
         worker.setName(worker.getName());
         worker.setPhoneNumber(worker.getPhoneNumber());
 
-        //NEW ADDRESS
-        Address address=new Address();
+        //EDIT ADDRESS
+        Address address = addressRepository.findById(worker.getAddress().getId()).get();
         address.setStreet(workerDto.getStreet());
         address.setHomeNumber(workerDto.getHomeNumber());
 

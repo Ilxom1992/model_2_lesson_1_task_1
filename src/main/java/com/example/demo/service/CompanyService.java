@@ -65,8 +65,8 @@ return companyRepository.findAll();
         Company company = optionalCompany.get();
         company.setCorpName(companyDto.getCorpName());
         company.setDirectorName(companyDto.getDirectorName());
-        //NEW ADDRESS
-        Address address=new Address();
+        //EDIT NEW ADDRESS
+        Address address= addressRepository.findById(company.getAddress().getId()).get();
         address.setStreet(companyDto.getStreet());
         address.setHomeNumber(companyDto.getHomeNumber());
         //ADDRESS SAVED DATABASE
